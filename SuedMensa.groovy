@@ -1,41 +1,55 @@
 import java.time.Instant
 
-// URL to read
-def url= "https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/xml/mensa-sued.xml"
+//calls method with stated arguments (Mensa, Date)
+mensaBot(args[0], args[1])
 
-// Parse the text
-def doc = new XmlSlurper().parse(url)
+def mensaBot(def mensa, def date) {
 
-def today = new Date().format('ddMMyyyy')   //define today's Date
-def i=0                                             //define counter
-boolean foundToday                                  //define bool for loop
+    // URL to read
+    def url = "https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/xml/mensa-${mensa}.xml"
 
-//Search for today's plan
-//Iterates through the timeStamps until it matches today's date and saves the iteration in counter $i
-while (!foundToday) {
+    // Parse the text
+    def doc = new XmlSlurper().parse(url)
 
-    def timeStamp = doc.tag[i]['@timestamp'].toString() as Integer                                  //formats timestamp from xml to integer
-    def formatedTimeStamp = Date.from(Instant.ofEpochSecond(timeStamp)).format('ddMMyyyy')  //formats the timestamp to ddMMyyyy
-
-    //println today
-    //println formatedTimeStamp
-
-    //Checks if today (ddMMyyyy) matches xml timestamp (ddMMyyyy)
-    if (today == formatedTimeStamp) {
-        foundToday = true
+    // If no date is stated take today's date
+    if (date != null) {
+        date = Date.parse('ddMMyyyy', "$date").format('ddMMyyyy')
     }
-    else {
-        i++
+
+    if (date == null) {
+        date = new Date().format('ddMMyyyy')   //define today's Date
     }
+
+    def i = 0                                            //define counter
+    boolean foundToday                                  //define bool for loop
+
+    // Search for stated date's plan
+    // Iterates through the timeStamps until it matches stated date and saves the iteration in counter $i
+    while (!foundToday) {
+
+
+        def timeStamp = doc.tag[i]['@timestamp'].toString() as Integer  //formats timestamp from xml to integer
+        def formatedTimeStamp = Date.from(Instant.ofEpochSecond(timeStamp)).format('ddMMyyyy')  //formats the timestamp to ddMMyyyy
+
+        //println date
+        //println formatedTimeStamp
+
+        //Checks if date (ddMMyyyy) matches xml timestamp (ddMMyyyy)
+        if (date == formatedTimeStamp) {
+            foundToday = true
+        } else {
+            i++
+        }
+    }
+    //call the method with xml and iteraton
+    searchedMeal(doc, i)
+
 }
 
-//prints all meals for a day with prices by using the iterator of today's date
-def mealToday(def doc, def i) {
+//prints all meals for a day with prices by using the iterator of stated date's date
+def searchedMeal(def doc, def i) {
     doc.tag[i].item.each {
         node ->
             println "${node.category}\n${node.title}\n${node.beilagen}\n${node.preis1}€ (Studierende)\n${node.preis2}€ (Bedienstete)\n${node.preis2}€ (Gäste)\n"
     }
 }
-
-//call the method with xml and iterator
-mealToday(doc, i)
