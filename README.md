@@ -1,9 +1,9 @@
-# FAUMensaScript
+# FAU Mensa Script
 <p>Script for the Mensaplans of the Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
 
 <p>For now supports two given Arguments.</p>
-<p>First argument is the location (for locations see below) and a second, optional one is the date (format: ddMMyyy).</p>
-<p>If no date is stated - location only - it will take today's date.</p>
+<p>First argument is the <b>location</b> (for locations see below) and a second, <b>optional</b> one is the <b>date</b> (format: ddMMyyy).</p>
+<p>If no date is stated - location only - it will use today's date.</p>
 
 <p><b>Locations:</b></p>
 <ul>
@@ -13,7 +13,7 @@
   <li>sued</li>
 </ul>
 
-<h4> Furture Plans Roadmap</h4>
+<h4> Furture Plans</h4>
 <ul>
   <li>More features in general</li>
   <li>Including more user interaction like --help command</li>
