@@ -1,14 +1,21 @@
-# FAUMensaBot
-Script for the Mensaplans of the Friedrich-Alexander-Universität Erlangen-Nürnberg
+# FAUMensaScript
+<p>Script for the Mensaplans of the Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
 
-For now supports two given Arguments, first is the location (for locations see below) and second the date (format: ddMMyyy).
+<p>For now supports two given Arguments.</p>
+<p>First argument is the location (for locations see below) and a second, optional one is the date (format: ddMMyyy).</p>
+<p>If no date is stated - location only - it will take today's date.</p>
 
-<b>locations:</b>
-eichstaett
-inselschuett
-lmp (langemarckplatz)
-sued
+<p><b>Locations:</b></p>
+<ul>
+  <li>eichstaett</li>
+  <li>inselschuett</li>
+  <li>lmp (langemarckplatz)</li>
+  <li>sued</li>
+</ul>
 
-
-<h3>For now it's just the daily plan for the Erlangen Sued-Mensa.</h3>
-More features including user interaction will be added soon.
+<h4> Furture Plans Roadmap</h4>
+<ul>
+  <li>More features in general</li>
+  <li>Including more user interaction like --help command</li>
+  <li>A Telegrambot</li>
+</ul
